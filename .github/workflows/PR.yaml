@@ -14,10 +14,8 @@ jobs:
         with:
           python-version: 3.8
           architecture: x64
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+      - name: Print payload
+        run: cat "$GITHUB_EVENT_PATH"
       - name: Finding changed files
         id: files
         uses: lsetiawan/get-changed-files@pr_target
