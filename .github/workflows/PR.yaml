@@ -1,6 +1,6 @@
 name: Pull Request Review
 
-on: pull_request
+on: pull_request_target
 
 jobs:
   check_pr:
@@ -38,7 +38,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Your changes look great @${AUTHOR_NAME}.`
+              body: `✅ Your changes look great @${AUTHOR_NAME}.`
             })
       - name: Failed comment
         uses: actions/github-script@v3
@@ -55,5 +55,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Looks like you didn't create changes within the allowed location @${AUTHOR_NAME}.`
+              body: `🛑 Looks like you didn't create changes within the allowed location @${AUTHOR_NAME}.`
             })
