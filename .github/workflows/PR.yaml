@@ -9,25 +9,51 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+          architecture: x64
       - name: Finding changed files
         id: files
         uses: jitterbit/get-changed-files@v1
         with:
           format: 'csv'
-      - name: Print Changed files
-        run: echo "${{ steps.files.outputs.added_modified }}"
-      - name: Print Author
-        run: echo "${{ github.event.pull_request.user.login }}"
-      - name: Comment on PR
+      - name: Checking files modified
+        id: file_check
+        run: |
+          python .ci_scripts/check-files.py "${{ steps.files.outputs.added_modified }}" ${{ github.event.pull_request.user.login }}
+      - name: Success comment
         uses: actions/github-script@v3
+        if: success()
+        env:
+          AUTHOR_NAME: ${{ github.event.pull_request.user.login }}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
+            var AUTHOR_NAME = process.env.AUTHOR_NAME;
             var fs = require('fs');
             var data = fs.readFileSync('.github/workflows/template.md', {encoding:'utf8', flag:'r'});
             github.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${data}`
+              body: `Your changes look great @${AUTHOR_NAME}.`
+            })
+      - name: Failed comment
+        uses: actions/github-script@v3
+        if: failure()
+        env:
+          AUTHOR_NAME: ${{ github.event.pull_request.user.login }}
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            var AUTHOR_NAME = process.env.AUTHOR_NAME;
+            var fs = require('fs');
+            var data = fs.readFileSync('.github/workflows/template.md', {encoding:'utf8', flag:'r'});
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Looks like you didn't create changes within the allowed location @${AUTHOR_NAME}.`
             })
