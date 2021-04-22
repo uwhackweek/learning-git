@@ -1,0 +1,24 @@
+name: Pull Request Review
+
+on: pull_request_target
+
+jobs:
+  check_pr:
+    name: Check PR
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Finding changed files
+        id: files
+        uses: jitterbit/get-changed-files@v1
+        with:
+          format: 'csv'
+      - name: Print Changed files
+        shell: bash -l {0}
+        run: echo "${{ steps.files.outputs.added_modified }}"
+      - uses: harupy/comment-on-pr@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: template.md
