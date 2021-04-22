@@ -17,8 +17,3 @@ jobs:
       - name: Print Changed files
         shell: bash -l {0}
         run: echo "${{ steps.files.outputs.added_modified }}"
-      - uses: harupy/comment-on-pr@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          filename: template.md

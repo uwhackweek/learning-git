@@ -7,6 +7,8 @@ jobs:
     name: Comment PR
     runs-on: ubuntu-20.04
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
       - uses: harupy/comment-on-pr@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
