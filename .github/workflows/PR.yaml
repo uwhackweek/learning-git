@@ -14,14 +14,9 @@ jobs:
         with:
           python-version: 3.8
           architecture: x64
-      - name: Print payload
-        run: cat "$GITHUB_EVENT_PATH"
       - name: Finding changed files
         id: files
-        uses: lsetiawan/get-changed-files@pr_test
-        env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        uses: lsetiawan/get-changed-files@pr_target
         with:
           format: 'csv'
       - name: Checking files modified
