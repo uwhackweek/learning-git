@@ -15,5 +15,19 @@ jobs:
         with:
           format: 'csv'
       - name: Print Changed files
-        shell: bash -l {0}
         run: echo "${{ steps.files.outputs.added_modified }}"
+      - name: Print Author
+        run: echo "${{ github.event.pull_request.user.login }}"
+      - name: Comment on PR
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            var fs = require('fs');
+            var data = fs.readFileSync('.github/workflows/template.md', {encoding:'utf8', flag:'r'});
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${data}`
+            })
