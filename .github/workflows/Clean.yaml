@@ -1,0 +1,27 @@
+name: Clean up folders
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # clean up daily
+  workflow_dispatch:
+
+jobs:
+  clean_folders:
+    name: Clean Folders
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+          architecture: x64
+      - name: Perform cleaning
+        id: clean
+        run: |
+          python .ci_scripts/clean-folders.py
+      - name: Auto commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 🧹 Apply folders daily clean up
