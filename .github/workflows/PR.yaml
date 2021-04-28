@@ -23,6 +23,10 @@ jobs:
               repo: context.repo.repo,
               body: `${data}`
             })
+      - name: Label Pull Request
+        uses: actions/labeler@v3
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Setup Python
         uses: actions/setup-python@v1
         with:

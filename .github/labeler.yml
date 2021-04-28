@@ -1,0 +1,3 @@
+# Add 'automerge' to any file changes within 'contributions' folder
+automerge:
+  - contributions/**/*
