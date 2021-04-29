@@ -5,3 +5,4 @@ mergeMethod: squash
 reportStatus: true
 requiredLabels:
 - automerge
+mergeCommitMessage: "{title} (#{number})"
