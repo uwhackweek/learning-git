@@ -6,6 +6,8 @@ jobs:
   check_pr:
     name: Check PR
     runs-on: ubuntu-20.04
+    outputs:
+      pr_status: ${{ steps.file_check.conclusion }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v2
@@ -81,8 +83,14 @@ jobs:
         if: steps.file_check.conclusion == 'success'
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-      - name: Auto merge.
+
+  auto_merge:
+    name: Auto Merge
+    runs-on: ubuntu-20.04
+    needs: check_pr
+    if: needs.check_pr.outputs.pr_status == 'success'
+    steps:
+      - name: Auto merge action.
         uses: "pascalgn/automerge-action@v0.13.1"
-        if: steps.approve_pr.conclusion == 'success'
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
