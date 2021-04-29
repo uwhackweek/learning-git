@@ -25,3 +25,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 🧹 Apply folders daily clean up
+          commit_user_name: Landung Setiawan
+          commit_user_email: landungs@uw.edu
+          commit_author: Landung Setiawan <landungs@uw.edu>
