@@ -1,6 +1,9 @@
 # Learning Git Version Control System
 
+
 Repository for learning git and github collaboratively.
+
+ [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://kcd.im/pull-request) 
 
 ---
 
