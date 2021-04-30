@@ -2,7 +2,7 @@
 
 Repository for learning git and github collaboratively.
 
-## Overview
+---
 
 This repository can be used to practice git [forking workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow) within github.
 
@@ -44,4 +44,8 @@ Here are the steps:
 
 7. Create a pull request from your new branch in forked repository by going to github **Pull requests > New pull request**.
 
+---
+### Resources
+
+- [Git cheat sheet](https://training.github.com/downloads/github-git-cheat-sheet.pdf)
     
