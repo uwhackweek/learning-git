@@ -1,14 +1,41 @@
 # Learning Git Version Control System
 
-Repository for learning git and github collaboratively.
-
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://jarednielsen.com/learn-git-fork-pull-request/)
 
 ---
 
-This repository can be used to practice the
-git [forking workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
-with github.com.
+Repository for learning git and GitHub collaboratively.
+
+There are many ways to contribute to a project and two of those are higlighted below.
+We encourage participants to practice either one during an event and many open source
+projects have similar guides to contribute.
+
+The two flows are:
+* Contributing directly with a branch
+* Contributing through a fork
+
+## Git workflows
+
+### Which one to choose?
+The way you can contribute and choose one of the above flows depends on your access
+privileges to a repository. You can use both flows, if you are part of the organization
+that owns the repository. This is the case when you participate in the hackweek and
+we added you to the GitHub organizaion. Once you are not part of the organization or
+if you want to contribute to a repository that is on someone else's personal account,
+then you need to use a fork.
+
+### Terminology
+Before we dive into the workflows, here some essential terms and links to definitions:
+* [Branch](https://docs.github.com/en/github/getting-started-with-github/quickstart/github-glossary#branch)
+* [Clone](https://docs.github.com/en/github/getting-started-with-github/quickstart/github-glossary#clone)
+* [Fork](https://docs.github.com/en/github/getting-started-with-github/quickstart/github-glossary#fork)
+* [Pull Request or short PR](https://docs.github.com/en/github/getting-started-with-github/quickstart/github-glossary#pull-request)
+* [Push](https://docs.github.com/en/github/getting-started-with-github/quickstart/github-glossary#push)
+
+## Contributing through a fork
+
+An in-depth description for the forking workflow can
+[be found here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow)
 
 Here are the steps:
 
@@ -135,7 +162,7 @@ Here are the steps:
     https://github.com/uwhackweek/learning-git/pulls
     ```
 
-## Keeping up to date with changes to the source (origin)
+### Keeping up to date with changes to the source (origin)
 
 By forking the repository, you created a snapshot at that point in time of
 the `learning-git` repository. To get any changes from  the UW Hackweek repository 
@@ -183,6 +210,113 @@ Here the steps:
    Successfully mreged and updated refs/heads/main.
    ```
 
+## Contributing through a branch
+
+The following explains the steps to [contribute directly to a repository using
+a branch](https://docs.github.com/en/github/getting-started-with-github/quickstart/github-flow).
+
+In a nutshell, here the flow:
+
+1. Clone the repository on your local computer
+
+   :bangbang: **NOTE** This is different from the above as you are cloning the original
+   repository and not your fork.
+
+   Command:
+   ```shell
+   git clone https://github.com/uwhackweek/learning-git
+   ```
+
+1. Create a branch
+
+   Choose a unique name that is not already taken in the repository and helps
+   other collaborators to identify your work. In this case we are adding a branch
+   with name 'feature_xyz'
+
+   ```shell
+   # The '-b' is indicating a new branch with the name `feature_xyz`
+   # It will also change to that.
+   git co -b feature_xyz
+   ```
+
+   Sample output:
+   ```shell
+   Switched to a new branch 'feature_xyz'
+   ```
+
+1. Verify you are on the new branch
+
+    ```shell
+    # Show all branches of the repository, the current active has the `*`
+    git branch
+    ```
+
+   Output:
+    ```shell
+    main
+    * feature_xyz
+    ```
+
+1. Make changes within the new branch
+
+   With this practice repository, you have to create a folder within
+   **`contributions`** folder with your GitHub username as the folder name. Use
+   a new markdwon file (`.md`) or text file (`.txt`) file to practice git with.
+   No other file types or folders are allowed outside your designated folder
+   with this practice run.
+
+1. Commit the changes
+
+   ```shell
+   # Add the new files
+   git add .
+   # Commit the changes
+   git commit -m "My new files"
+   ```
+
+1. Push the changes to your forked repository
+
+   ```shell
+   git push origin feature_xyz
+   ```
+
+1. Create a pull request from your new branch
+
+   Go to the repository page on github.com. There, you will see a banner to create
+   the pull request.
+
+   ![pull request](images/pull-request-branch.png)
+
+1. Go to the pull request tab and celebrate!
+
+   ```shell
+    https://github.com/uwhackweek/learning-git/pulls
+    ```
+
+1. Clean up and delete the branch locally and on the website.
+
+   Once your pull request is merged to the `main` branch, it is a good practice
+   to delete the created branch. This has to be done in two places, once on
+   the pull request page on github.com and the other on your local repository.
+
+   For github.com, see the official documentation on
+   [how to delete a branch](https://docs.github.com/en/github/administering-a-repository/managing-branches-in-your-repository/deleting-and-restoring-branches-in-a-pull-request#deleting-a-branch-used-for-a-pull-request)
+   after it has been merged. In this practice repository, we have setup a rule
+   that will take care of this step for you.
+
+   Locally, however, you must still do this yourself and here the steps you
+   need to execute within your local repository:
+
+   ```shell
+   # Go back to the `main` branch
+   git checkout main
+   # Get the latest changes that include your pull request
+   git pull
+   # Delete the branch. Here, our practice run branch `feature_xyz`
+   # The -d flag is a safety option that only allows fully merged branches
+   # to be deleted.
+   git branch -d feature_xyz
+   ```
 ---
 
 ## Resources
